@@ -18,3 +18,27 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/**
+*Route cho administrator
+*/
+Route::prefix('admin')->group(function () {
+//gom nhóm các route cho phần admin
+    //url: authen.com/admin
+    Route::get('/', 'Admincontroller@index')->name('admin.dashboard');
+    //url: authen.com/admin/dashboard
+    //ROute đăng nhập thành công
+    Route::get('/dashboard','Admincontroller@index')->name('admin.dashboard');
+});
+/**
+ *URL: authen.com/admin/register
+ * Route trả về view dùng để đăng kí tài khoản admin
+ */
+Route::get('register','Admincontroller@create')->name('admin.register');
+/**
+ *URL: authen.com/admin/register
+ * Phương thức là post
+ * Route dùng để đăng kí 1 admin từ form Post
+ */
+    Route::post('register','Admincontroller@store')->name('admin.register.store');
